@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Verb Patterns – Flashcard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--b1:#4f86b5;--b2:#8db9dc;--b3:#cfe4f3;--b4:#eef6fb;--ink:#244560;--soft:#6a8aa6;--bg:#ffffff;--card:rgba(255,255,255,.86);--line:rgba(79,134,181,.28);--ok:#3c9a82;--no:#d4627a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#dcecf9;--soft:#93b4d0;--bg:#0f1d2b;--card:rgba(24,44,64,.86);--line:rgba(141,185,220,.3);--b4:#16293b}}
+:root[data-theme="dark"]{--ink:#dcecf9;--soft:#93b4d0;--bg:#0f1d2b;--card:rgba(24,44,64,.86);--line:rgba(141,185,220,.3);--b4:#16293b}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,sans-serif;overflow-x:hidden}
+.art{position:absolute;top:0;left:0;width:min(230px,46vw);z-index:0;pointer-events:none;animation:fl 9s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(10px)}}
+.bird{animation:fly 6s ease-in-out infinite;transform-origin:80px 190px}@keyframes fly{50%{transform:translate(6px,-6px) rotate(-3deg)}}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:22px 16px 60px}
+header{margin-left:clamp(0px,24vw,190px);min-height:150px;padding-top:12px}
+h1{font:600 clamp(40px,9vw,62px)/1 'Cormorant Garamond',serif;color:var(--b1);margin:0;letter-spacing:.01em}
+.sub{color:var(--soft);margin:8px 0 14px;font-weight:600;line-height:1.5}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tab,.chip,.btn{font:700 14px 'Nunito';border:1.5px solid var(--line);background:var(--card);color:var(--ink);padding:8px 16px;border-radius:99px;cursor:pointer;transition:.25s}
+.tab:hover,.chip:hover,.btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(79,134,181,.25)}
+.tab.on,.chip.on,.btn.pri{background:linear-gradient(90deg,var(--b1),var(--b2));color:#fff;border-color:transparent}
+.view{display:none}.view.on{display:block;animation:in .5s}
+@keyframes in{from{opacity:0;transform:translateY(16px)}}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 10px}.chip{padding:6px 13px;font-size:13px}
+.stats{display:flex;justify-content:space-between;color:var(--soft);font-weight:700;font-size:13px;margin:8px 0 6px;flex-wrap:wrap;gap:6px}
+.prog{height:7px;border-radius:9px;background:var(--line);overflow:hidden}.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--b1),var(--b2));transition:.5s}
+.scene{perspective:1200px;margin:16px 0}
+.card{display:grid;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.3,.8,.3,1)}.card.f{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:26px;padding:26px 20px;border:1px solid var(--line);background:var(--card);box-shadow:0 18px 44px rgba(79,134,181,.2);min-height:380px;display:flex;flex-direction:column;justify-content:center;text-align:center;gap:10px}
+.back{transform:rotateY(180deg);background:linear-gradient(160deg,var(--b4),var(--card))}
+.tag{font-size:12px;letter-spacing:.2em;color:var(--soft);font-weight:800;text-transform:uppercase}
+.word{font:600 clamp(34px,8vw,54px)/1.15 'Cormorant Garamond',serif;color:var(--b1);margin:4px 0}
+.vi{color:var(--soft);font-weight:700}
+.q{font-weight:800;margin-top:10px}
+.ans{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.ans button{font:800 14px 'Nunito';padding:12px 6px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:.2s;line-height:1.25}
+.ans button:hover{transform:translateY(-3px);border-color:var(--b1);background:var(--b4)}.ans small{display:block;font-weight:600;color:var(--soft);font-size:11px}
+.ans .w2{grid-column:span 3/span 1}
+.peek{background:none;border:0;color:var(--soft);font:700 13px 'Nunito';cursor:pointer;text-decoration:underline;margin-top:4px}
+.res{font:700 22px 'Nunito';animation:pop .5s}.res.ok{color:var(--ok)}.res.no{color:var(--no);animation:shk .5s}
+@keyframes pop{50%{transform:scale(1.12)}}@keyframes shk{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pill{display:inline-block;padding:6px 16px;border-radius:99px;background:linear-gradient(90deg,var(--b1),var(--b2));color:#fff;font-weight:800;margin:2px}
+.ex{background:var(--b4);border-left:4px solid var(--b2);border-radius:12px;padding:10px 14px;text-align:left;line-height:1.6;font-size:15px}
+.note{font-size:12.5px;color:var(--soft)}
+.done{text-align:center;padding:40px 10px}.done .sc{font:600 70px 'Cormorant Garamond',serif;color:var(--b1)}
+.grp{margin:22px 0}.grp h2{font:600 28px 'Cormorant Garamond',serif;color:var(--b1);margin:0 0 8px;border-bottom:1px solid var(--line)}
+.rw{padding:9px 4px;border-bottom:1px dashed var(--line);line-height:1.55}.rw b{color:var(--b1)}.rw span{color:var(--soft)}.rw em{display:block;font-size:14px;color:var(--ink);opacity:.85}
+@media(max-width:560px){.ans{grid-template-columns:repeat(2,1fr)}.ans .w2{grid-column:span 2/span 1}.art{opacity:.45;left:auto;right:0}header{margin-left:0}}
+</style>
+</head>
+<body>
+<svg class="art" viewBox="0 0 260 420"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9cc3e2"/><stop offset="1" stop-color="#c9e0f1"/></linearGradient>
+<symbol id="hy" viewBox="-20 -20 40 40"><g fill="#eef6fb" stroke="#7fb0d6" stroke-width="1"><ellipse cx="0" cy="-9" rx="7" ry="11"/><ellipse cx="0" cy="-9" rx="7" ry="11" transform="rotate(90)"/><ellipse cx="0" cy="-9" rx="7" ry="11" transform="rotate(180)"/><ellipse cx="0" cy="-9" rx="7" ry="11" transform="rotate(270)"/></g><circle r="3" fill="#9cc3e2"/></symbol></defs>
+<rect x="60" y="10" width="50" height="290" fill="url(#g)" opacity=".85"/><rect x="122" y="70" width="46" height="330" fill="url(#g)" opacity=".7"/>
+<g fill="#5b95c4" opacity=".85"><path d="M120 235 C90 205 80 230 60 250 C80 244 100 246 118 252Z" transform="translate(-60 -60)"/></g>
+<g class="bird" fill="#5b95c4" opacity=".9"><path d="M8 130 C40 118 70 124 92 146 C72 148 58 158 44 168 C52 150 30 138 8 130Z"/><path d="M44 126 C54 96 74 78 100 68 C92 88 86 108 86 130Z"/></g>
+<g fill="#6fa4cf" opacity=".85"><path d="M130 250 C100 230 70 250 56 290 C90 290 116 276 130 250Z"/><path d="M165 230 C195 215 225 225 238 245 C210 252 182 248 165 230Z"/><path d="M158 330 C184 322 210 330 224 350 C196 356 172 350 158 330Z"/></g>
+<g><use href="#hy" x="148" y="160" width="40" height="40"/><use href="#hy" x="176" y="150" width="34" height="34"/><use href="#hy" x="195" y="178" width="38" height="38"/><use href="#hy" x="150" y="196" width="36" height="36"/><use href="#hy" x="180" y="206" width="34" height="34"/><use href="#hy" x="148" y="270" width="40" height="40"/><use href="#hy" x="180" y="285" width="36" height="36"/><use href="#hy" x="160" y="310" width="38" height="38"/><use href="#hy" x="196" y="322" width="32" height="32"/></g>
+<path d="M170 215 C172 290 176 340 180 410" stroke="#5b95c4" stroke-width="3" fill="none" opacity=".8"/></svg>
+
+<div class="wrap">
+<header><h1>Verb Patterns</h1><p class="sub">Flashcard ghi nhớ: động từ &amp; cấu trúc đi với <b>To V</b>, <b>V-ing</b> hay <b>Bare V</b>?</p>
+<div class="tabs"><button class="tab on" data-v="v1">🃏 Flashcard</button><button class="tab" data-v="v2">📖 Bảng tra</button><button class="tab" id="snd" title="Bật/tắt âm thanh">🔔</button></div></header>
+<section class="view on" id="v1"><div class="chips" id="chips"></div><div class="stats"><span id="st1"></span><span id="st2"></span></div><div class="prog"><i id="pg" style="width:0"></i></div><div class="scene" id="scene"></div></section>
+<section class="view" id="v2"></section>
+</div>
+
+<script>
+const L={t:'To V',g:'V-ing',b:'Bare V',s:'To V / V-ing (cùng nghĩa)',d:'To V / V-ing (khác nghĩa)'};
+const C=[
+'t|Afford|Đủ khả năng|I can’t afford to buy a new car.','t|Agree|Đồng ý|She agreed to help us.','t|Appear|Dường như|He appears to be tired.','t|Arrange|Sắp xếp|We arranged to meet at 8.','t|Ask|Yêu cầu|I asked to leave early.','t|Attempt|Cố gắng|They attempted to climb the mountain.','t|Care|Quan tâm|Would you care to join us?','t|Choose|Chọn lựa|She chose to stay home.','t|Decide|Quyết định|I decided to study abroad.','t|Demand|Yêu cầu|He demanded to see the manager.','t|Deserve|Xứng đáng|You deserve to win.','t|Expect|Mong đợi|I expect to finish soon.','t|Fail|Thất bại|He failed to arrive on time.','t|Happen|Tình cờ|I happened to see her there.','t|Hesitate|Do dự|Don’t hesitate to call me.','t|Hope|Hy vọng|We hope to see you again.','t|Learn|Học cách|She learned to swim at six.','t|Manage|Xoay xở|He managed to solve the problem.','t|Offer|Đề nghị|They offered to pay.','t|Plan|Lên kế hoạch|I plan to travel next year.','t|Pretend|Giả vờ|He pretended to be asleep.','t|Promise|Hứa|She promised to call back.','t|Refuse|Từ chối|He refused to answer.',
+'t|It takes / took + Sb + time + …|Mất của ai bao lâu để làm gì|It took me two hours to finish the report.','t|S + be + Adj + …|Thật là ... để làm gì|It is hard to believe.','t|Too + Adj/Adv + …|Quá ... để làm gì|He is too tired to walk.','t|Adj/Adv + enough + …|Đủ ... để làm gì|She is old enough to drive.',
+'g|Admit|Thừa nhận|He admitted stealing the money.','g|Appreciate|Trân trọng|I appreciate having your help.','g|Avoid|Tránh|Avoid eating too much sugar.','g|Consider|Cân nhắc|She is considering moving abroad.','g|Delay|Trì hoãn|Don’t delay sending the report.','g|Deny|Phủ nhận|He denied breaking the window.','g|Discuss|Thảo luận|We discussed going camping.','g|Dislike|Ghét|I dislike waiting in line.','g|Enjoy|Thích|She enjoys reading novels.','g|Finish|Hoàn thành|I finished doing my homework.','g|Keep|Tiếp tục|Keep practicing every day.','g|Mention|Đề cập|He mentioned seeing her yesterday.','g|Mind|Bận tâm|Do you mind opening the window?','g|Miss|Bỏ lỡ|I miss living in the countryside.','g|Postpone|Hoãn lại|They postponed having the meeting.','g|Practice|Thực hành|He practices playing the guitar daily.','g|Quit|Từ bỏ|She quit smoking last year.','g|Recommend|Gợi ý|I recommend visiting Hue.','g|Suggest|Đề xuất|She suggested going out for dinner.',
+'g|Look forward to|Mong đợi|I look forward to meeting you.','g|Be / Get used to, Be accustomed to|Quen với việc gì|She is used to getting up early.','g|Can’t help / Can’t stand / Can’t bear|Không thể nhịn được / không thể chịu đựng|I can’t stand waiting.','g|It’s no use / It’s no good / There is no point in|Thật vô ích khi làm gì|It’s no use crying.','g|Be busy (with) / Be worth|Bận rộn / Đáng giá|The museum is worth visiting.','g|Spend / Waste + time/money + …|Dành / lãng phí thời gian, tiền bạc làm gì|He spends hours playing games.','g|Sau giới từ (in, on, at, about, for, without, before, after…)|Giới từ luôn + V-ing|She left without saying goodbye.',
+'s|Begin|Bắt đầu|It began to rain / raining. (Không dùng V-ing nếu begin đang ở thì tiếp diễn: It is beginning to rain.)','s|Start|Bắt đầu|He started to learn / learning English.','s|Continue|Tiếp tục|She continued to work / working. (Không dùng V-ing nếu continue ở thì tiếp diễn.)','s|Like|Thích|I like swimming (sở thích chung). / I’d like to swim now (lựa chọn cụ thể).','s|Love|Yêu thích|I love cooking (chung). / I’d love to cook for you (cụ thể).','s|Hate|Ghét|I hate getting up early (chung). / I hate to disturb you (cụ thể).','s|Prefer|Thích hơn|I prefer walking (chung). / I prefer to walk today (cụ thể).','s|Bother|Bận tâm|Don’t bother to call / calling.','s|Intend|Dự định|I intend to go / going. (Tài liệu liệt kê ở cả hai nhóm.)',
+'d|Remember|Nhớ|To V: nhớ phải làm gì (bổn phận, chưa làm) – Remember to lock the door.§V-ing: nhớ đã làm gì (kí ức, đã làm rồi) – I remember meeting him before.','d|Forget|Quên|To V: quên phải làm gì (chưa làm) – Don’t forget to buy milk.§V-ing: quên đã làm gì (đã làm nhưng không nhớ) – I forget reading this book.','d|Regret|Hối tiếc|To V: rất tiếc phải thông báo (hiện tại) – I regret to inform you that…§V-ing: hối hận vì đã làm gì (quá khứ) – I regret quitting my job.','d|Stop|Dừng|To V: dừng lại ĐỂ làm việc khác – He stopped to smoke.§V-ing: từ bỏ, chấm dứt việc đang làm – He stopped smoking.','d|Try|Cố gắng / Thử|To V: cố gắng, nỗ lực làm gì – I tried to lift the heavy box.§V-ing: thử làm gì để xem kết quả – Try adding some salt to the soup.','d|Mean|Có ý định / Có nghĩa là|To V: có ý định làm gì – I didn’t mean to hurt you.§V-ing: có nghĩa là, đòi hỏi (involve) – This means working on weekends.','d|Need|Cần|To V: cần làm gì (chủ động) – I need to wash my car.§V-ing: cần được làm (bị động) – My car needs washing (= needs to be washed).',
+'b|Modal verbs (can, could, may, might, will, would, shall, should, must) + …|Động từ khuyết thiếu|She can sing well.','b|Make + sb + …|Bắt / khiến ai đó làm gì|My boss made me work late. (Bị động: be made TO do sth.)','b|Let + sb + …|Cho phép ai đó làm gì|My mom let me go out.','b|Have + sb + …|Nhờ ai đó làm gì (chủ động)|I had him fix my bike.','b|See / hear / watch / notice / feel + sb + …|Động từ tri giác: V = thấy toàn bộ hành động|I saw him cross the road. (Còn sb + V-ing = thấy một phần: I saw him crossing the road.)','b|Had better + …|Tốt hơn là nên làm gì|You had better see a doctor.','b|Would rather + …|Thà làm gì (would rather V than V)|I would rather stay home than go out.'
+].map(s=>{const a=s.split('|');return{k:a[0],f:a[1],v:a[2],e:a[3]}});
+
+/* sound */
+let AC,mute=false;function tone(seq,type,d){if(mute)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime;seq.forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(.0001,t+i*d);g.gain.exponentialRampToValueAtTime(.22,t+i*d+.02);g.gain.exponentialRampToValueAtTime(.0001,t+i*d+d);o.connect(g);g.connect(AC.destination);o.start(t+i*d);o.stop(t+i*d+d+.05)})}catch(e){}}
+const good=()=>tone([523,659,784,1047],'sine',.11),bad=()=>tone([220,165],'sawtooth',.2);
+const $=s=>document.querySelector(s);
+$('#snd').onclick=e=>{mute=!mute;e.target.textContent=mute?'🔕':'🔔'};
+document.querySelectorAll('.tab[data-v]').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab[data-v]').forEach(x=>x.classList.toggle('on',x==b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==b.dataset.v))});
+
+/* flashcard */
+const FL=[['all','Tất cả'],['t','To V'],['g','V-ing'],['s','Cùng nghĩa'],['d','Khác nghĩa'],['b','Bare V']];
+let flt='all',q=[],cur=null,total=0,mast=0,first=0,seen=new Set(),streak=0;
+$('#chips').innerHTML=FL.map(f=>`<button class="chip ${f[0]=='all'?'on':''}" data-f="${f[0]}">${f[1]} (${f[0]=='all'?C.length:C.filter(c=>c.k==f[0]).length})</button>`).join('');
+document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{flt=b.dataset.f;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x==b));start()});
+function start(){q=C.filter(c=>flt=='all'||c.k==flt).sort(()=>Math.random()-.5);total=q.length;mast=0;first=0;seen=new Set();streak=0;next()}
+function next(){cur=q.shift();stats();show()}
+function stats(){$('#st1').textContent=`Đã nhớ ${mast}/${total}`;$('#st2').textContent=`Đúng ngay lần đầu: ${first} · 🔥 Chuỗi: ${streak}`;$('#pg').style.width=(total?mast/total*100:0)+'%'}
+function show(){const sc=$('#scene');
+if(!cur){sc.innerHTML=`<div class="done"><div class="sc">${first}/${total}</div><p>Đúng ngay lần đầu ${total?Math.round(first/total*100):0}% · bạn đã nhớ hết ${total} thẻ 🌿</p><button class="btn pri" onclick="start()">Học lại (xáo trộn)</button></div>`;good();return}
+const k=cur.k,btn=(x,l,s,c)=>`<button data-a="${x}" class="${c||''}">${l}${s?`<small>${s}</small>`:''}</button>`;
+sc.innerHTML=`<div class="card" id="cd"><div class="face"><span class="tag">${k=='t'&&/\+|…/.test(cur.f)||(k=='g'&&/\+|…|giới từ|\//.test(cur.f))||k=='b'?'Cấu trúc':'Từ vựng'}</span><div class="word">${cur.f}</div><div class="vi">${cur.v}</div><div class="q">Đi với dạng nào?</div>
+<div class="ans">${btn('t','To V')}${btn('g','V-ing')}${btn('b','Bare V','nguyên thể')}${btn('s','To V / V-ing','cùng nghĩa','w2')}${btn('d','To V / V-ing','khác nghĩa','w2')}</div><button class="peek" id="pk">Không nhớ – xem đáp án</button></div>
+<div class="face back" id="bk"></div></div>`;
+sc.querySelectorAll('.ans button').forEach(b=>b.onclick=()=>answer(b.dataset.a));$('#pk').onclick=()=>answer(null)}
+function answer(a){const ok=a==cur.k,sc=$('#scene');if(ok){good();streak++;mast++;if(!seen.has(cur))first++}else{bad();streak=0;q.splice(Math.min(3,q.length),0,cur)}seen.add(cur);
+const ex=cur.k=='d'?cur.e.split('§').map(x=>`<div class="ex">${x}</div>`).join(''):`<div class="ex">Ví dụ: ${cur.e}</div>`;
+$('#bk').innerHTML=`<div class="res ${ok?'ok':'no'}">${ok?'✅ Chính xác!':a?'❌ Chưa đúng':'💡 Đáp án'}</div><div><span class="tag">${cur.f}</span></div><div><span class="pill">${L[cur.k]}</span></div><div class="vi">${cur.v}</div>${ex}${ok?'':'<div class="note">Thẻ này sẽ xuất hiện lại sau ít thẻ nữa để bạn ôn.</div>'}<div><button class="btn pri" id="nx">${q.length?'Thẻ tiếp ➜':'Hoàn thành'}</button></div>`;
+$('#nx').onclick=next;$('#cd').classList.add('f');stats()}
+start();
+
+/* bảng tra */
+$('#v2').innerHTML=[['t','1. Đi với To V (Infinitive)'],['g','2. Đi với V-ing (Gerund)'],['s','3. To V hoặc V-ing – CÙNG nghĩa'],['d','4. To V hoặc V-ing – KHÁC nghĩa'],['b','5. Đi với Bare Infinitive (V nguyên thể)']].map(g=>`<div class="grp"><h2>${g[1]}</h2>${C.filter(c=>c.k==g[0]).map(c=>`<div class="rw"><b>${c.f}</b> <span>– ${c.v}</span><em>${c.e.replace(/§/g,'<br>')}</em></div>`).join('')}</div>`).join('');
+</script>
+</body>
+</html>
